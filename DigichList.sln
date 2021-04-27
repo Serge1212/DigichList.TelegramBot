@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.64
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigichList.Bot", "DigichList.Bot\DigichList.Bot.csproj", "{6C4F0FD0-596D-4675-9B6D-111321EA52BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigichList.Data", "DigichList.Data\DigichList.Data.csproj", "{E3F84F2C-43A3-4F17-980B-0F01E23DD64E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C4F0FD0-596D-4675-9B6D-111321EA52BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C4F0FD0-596D-4675-9B6D-111321EA52BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C4F0FD0-596D-4675-9B6D-111321EA52BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C4F0FD0-596D-4675-9B6D-111321EA52BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F84F2C-43A3-4F17-980B-0F01E23DD64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F84F2C-43A3-4F17-980B-0F01E23DD64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F84F2C-43A3-4F17-980B-0F01E23DD64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F84F2C-43A3-4F17-980B-0F01E23DD64E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9796FD6-5A0D-4841-B183-3C70267B077A}
+	EndGlobalSection
+EndGlobal
