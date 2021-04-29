@@ -1,9 +1,7 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace DigichList.Data
+namespace DigichList.Infrastructure.Data
 {
     public class DigichListContextFactory : IDesignTimeDbContextFactory<DigichListContext>
     {
