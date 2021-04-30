@@ -13,7 +13,7 @@ namespace DigichList.Core.Entities
         public int DefectId { get; set; }
         public Defect Defect { get; set; }
         public Status Status { get; set; } = Status.Opened;
-        public int UserId { get; set; }
-        public User AssignedWorker { get; set; }
+        public int? TechnicianId { get; set; }
+        public Technician AssignedWorker { get; set; }
     }
 }

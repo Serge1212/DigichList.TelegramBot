@@ -12,6 +12,7 @@ namespace DigichList.Core.Entities
         public string Description { get; set; }
         public int UserId { get; set; }
         public User Publisher { get; set; }
+        public AssignedDefect AssignedDefect { get; set; }
         public List<DefectImage> DefectImages { get; set; } = new List<DefectImage>();
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DigichList.Infrastructure.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,6 +66,33 @@ namespace DigichList.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AssignedDefects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DefectId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    TechnicianId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedDefects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AssignedDefects_Defects_DefectId",
+                        column: x => x.DefectId,
+                        principalTable: "Defects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedDefects_Users_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DefectImages",
                 columns: table => new
                 {
@@ -86,6 +113,17 @@ namespace DigichList.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AssignedDefects_DefectId",
+                table: "AssignedDefects",
+                column: "DefectId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssignedDefects_TechnicianId",
+                table: "AssignedDefects",
+                column: "TechnicianId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DefectImages_DefectId",
                 table: "DefectImages",
                 column: "DefectId");
@@ -103,6 +141,9 @@ namespace DigichList.Infrastructure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AssignedDefects");
+
             migrationBuilder.DropTable(
                 name: "DefectImages");
 

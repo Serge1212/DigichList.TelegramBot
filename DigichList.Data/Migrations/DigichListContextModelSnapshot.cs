@@ -19,6 +19,32 @@ namespace DigichList.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DigichList.Core.Entities.AssignedDefect", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DefectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TechnicianId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DefectId")
+                        .IsUnique();
+
+                    b.HasIndex("TechnicianId");
+
+                    b.ToTable("AssignedDefects");
+                });
+
             modelBuilder.Entity("DigichList.Core.Entities.Base.User", b =>
                 {
                     b.Property<int>("Id")
@@ -120,6 +146,24 @@ namespace DigichList.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("Technician");
                 });
 
+            modelBuilder.Entity("DigichList.Core.Entities.AssignedDefect", b =>
+                {
+                    b.HasOne("DigichList.Core.Entities.Defect", "Defect")
+                        .WithOne("AssignedDefect")
+                        .HasForeignKey("DigichList.Core.Entities.AssignedDefect", "DefectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DigichList.Core.Entities.Technician", "AssignedWorker")
+                        .WithMany("AssignedDefects")
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("AssignedWorker");
+
+                    b.Navigation("Defect");
+                });
+
             modelBuilder.Entity("DigichList.Core.Entities.Base.User", b =>
                 {
                     b.HasOne("DigichList.Core.Entities.Role", "Role")
@@ -158,12 +202,19 @@ namespace DigichList.Infrastructure.Migrations
 
             modelBuilder.Entity("DigichList.Core.Entities.Defect", b =>
                 {
+                    b.Navigation("AssignedDefect");
+
                     b.Navigation("DefectImages");
                 });
 
             modelBuilder.Entity("DigichList.Core.Entities.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("DigichList.Core.Entities.Technician", b =>
+                {
+                    b.Navigation("AssignedDefects");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,11 +18,15 @@ namespace DigichList.Infrastructure.Data
         public DbSet<Defect> Defects { get; set; }
         public DbSet<DefectImage> DefectImages { get; set; }
 
+        public DbSet<AssignedDefect> AssignedDefects { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new DefectEntityConfiguration());
             modelBuilder.ApplyConfiguration(new RegularUserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new DefectImageEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new AssignedDefectEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new TechnicianEntityConfiguration());
         }
 
     }

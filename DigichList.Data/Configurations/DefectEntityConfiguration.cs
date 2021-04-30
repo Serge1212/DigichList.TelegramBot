@@ -13,6 +13,10 @@ namespace DigichList.Infrastructure.Configurations
             builder.HasMany(d => d.DefectImages)
                 .WithOne(d => d.Defect)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(d => d.AssignedDefect)
+                .WithOne(d => d.Defect)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
