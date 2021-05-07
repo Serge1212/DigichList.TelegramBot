@@ -1,10 +1,10 @@
-﻿using DigichList.Core.Entities.Base;
+﻿using DigichList.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigichList.Infrastructure.Configurations
 {
-    public class RegularUserEntityConfiguration : IEntityTypeConfiguration<User>
+    public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {

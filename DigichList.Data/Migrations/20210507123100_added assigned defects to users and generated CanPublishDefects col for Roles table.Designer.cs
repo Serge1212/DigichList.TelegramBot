@@ -4,14 +4,16 @@ using DigichList.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigichList.Infrastructure.Migrations
 {
     [DbContext(typeof(DigichListContext))]
-    partial class DigichListContextModelSnapshot : ModelSnapshot
+    [Migration("20210507123100_added assigned defects to users and generated CanPublishDefects col for Roles table")]
+    partial class addedassigneddefectstousersandgeneratedCanPublishDefectscolforRolestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,8 +87,8 @@ namespace DigichList.Infrastructure.Migrations
                     b.Property<int>("DefectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("varchar(MAX)");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
@@ -106,13 +108,9 @@ namespace DigichList.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Roles");
                 });
@@ -127,9 +125,6 @@ namespace DigichList.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsRegistered")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -141,9 +136,6 @@ namespace DigichList.Infrastructure.Migrations
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("WantsToRegister")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

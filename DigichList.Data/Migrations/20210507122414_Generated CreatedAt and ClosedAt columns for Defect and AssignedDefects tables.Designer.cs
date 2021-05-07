@@ -4,14 +4,16 @@ using DigichList.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigichList.Infrastructure.Migrations
 {
     [DbContext(typeof(DigichListContext))]
-    partial class DigichListContextModelSnapshot : ModelSnapshot
+    [Migration("20210507122414_Generated CreatedAt and ClosedAt columns for Defect and AssignedDefects tables")]
+    partial class GeneratedCreatedAtandClosedAtcolumnsforDefectandAssignedDefectstables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +48,35 @@ namespace DigichList.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AssignedDefects");
+                });
+
+            modelBuilder.Entity("DigichList.Core.Entities.Base.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TelegramId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DigichList.Core.Entities.Defect", b =>
@@ -85,8 +116,8 @@ namespace DigichList.Infrastructure.Migrations
                     b.Property<int>("DefectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("varchar(MAX)");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
@@ -102,54 +133,12 @@ namespace DigichList.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("CanPublishDefects")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("DigichList.Core.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsRegistered")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TelegramId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("WantsToRegister")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DigichList.Core.Entities.AssignedDefect", b =>
@@ -160,8 +149,8 @@ namespace DigichList.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DigichList.Core.Entities.User", "AssignedWorker")
-                        .WithMany("AssignedDefects")
+                    b.HasOne("DigichList.Core.Entities.Base.User", "AssignedWorker")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("AssignedWorker");
@@ -169,9 +158,18 @@ namespace DigichList.Infrastructure.Migrations
                     b.Navigation("Defect");
                 });
 
+            modelBuilder.Entity("DigichList.Core.Entities.Base.User", b =>
+                {
+                    b.HasOne("DigichList.Core.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("DigichList.Core.Entities.Defect", b =>
                 {
-                    b.HasOne("DigichList.Core.Entities.User", "Publisher")
+                    b.HasOne("DigichList.Core.Entities.Base.User", "Publisher")
                         .WithMany("Defects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,13 +189,9 @@ namespace DigichList.Infrastructure.Migrations
                     b.Navigation("Defect");
                 });
 
-            modelBuilder.Entity("DigichList.Core.Entities.User", b =>
+            modelBuilder.Entity("DigichList.Core.Entities.Base.User", b =>
                 {
-                    b.HasOne("DigichList.Core.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
-
-                    b.Navigation("Role");
+                    b.Navigation("Defects");
                 });
 
             modelBuilder.Entity("DigichList.Core.Entities.Defect", b =>
@@ -210,13 +204,6 @@ namespace DigichList.Infrastructure.Migrations
             modelBuilder.Entity("DigichList.Core.Entities.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("DigichList.Core.Entities.User", b =>
-                {
-                    b.Navigation("AssignedDefects");
-
-                    b.Navigation("Defects");
                 });
 #pragma warning restore 612, 618
         }

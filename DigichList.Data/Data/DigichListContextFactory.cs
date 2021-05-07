@@ -9,7 +9,7 @@ namespace DigichList.Infrastructure.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<DigichListContext>();
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DigichListDb;Trusted_Connection=True;");
-            return new DigichListContext(optionsBuilder.Options);
+            return new DigichListContext();
         }
     }
 }

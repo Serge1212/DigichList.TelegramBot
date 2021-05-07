@@ -5,7 +5,9 @@ namespace DigichList.Core.Entities
 {
     public class Role : Entity
     {
+        
         public string Name { get; set; }
+        public bool CanPublishDefects { get; set; } = false;
         public List<User> Users { get; set; } = new List<User>();
 
     }

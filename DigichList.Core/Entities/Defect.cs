@@ -1,4 +1,5 @@
 ﻿using DigichList.Core.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,6 +11,7 @@ namespace DigichList.Core.Entities
         public int RoomNumber { get; set; }
         [Required]
         public string Description { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         public User Publisher { get; set; }
         public AssignedDefect AssignedDefect { get; set; }
