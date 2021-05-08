@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DigichList.Bot.Configuration
+namespace DigichList.Application.Configuration
 {
     public class BotConfig
     {

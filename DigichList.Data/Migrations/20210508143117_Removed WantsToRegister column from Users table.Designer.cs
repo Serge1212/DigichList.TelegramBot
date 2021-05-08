@@ -4,14 +4,16 @@ using DigichList.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigichList.Infrastructure.Migrations
 {
     [DbContext(typeof(DigichListContext))]
-    partial class DigichListContextModelSnapshot : ModelSnapshot
+    [Migration("20210508143117_Removed WantsToRegister column from Users table")]
+    partial class RemovedWantsToRegistercolumnfromUserstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

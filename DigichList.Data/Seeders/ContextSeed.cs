@@ -91,43 +91,43 @@ namespace DigichList.Infrastructure.Seeders
                     {
                         RoomNumber = 12,
                         Description = "Дверцята від тумбочки не закриваються до кінця.",
-                        Publisher = await _userRepository.GetUserByTelegramId(750882579)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(750882579)
                     },
                     new Defect
                     {
                         RoomNumber = 13,
                         Description = "Поломився тримач шлангу в душовій кабіні.",
-                        Publisher = await _userRepository.GetUserByTelegramId(750882579)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(750882579)
                     },
                     new Defect
                     {
                         RoomNumber = 43,
                         Description = "Поломився ламель.",
-                        Publisher = await _userRepository.GetUserByTelegramId(750882579)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(750882579)
                     },
                     new Defect
                     {
                         RoomNumber = 17,
                         Description = "ПРОПАЛИ ШПАЛЕРИ У НОМЕРІ!!!",
-                        Publisher = await _userRepository.GetUserByTelegramId(554664751)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(554664751)
                     },
                     new Defect
                     {
                         RoomNumber = 22,
                         Description = "Протікає кран.",
-                        Publisher = await _userRepository.GetUserByTelegramId(554664751)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(554664751)
                     },
                     new Defect
                     {
                         RoomNumber = 25,
                         Description = "Тріщина у ванній кімнаті",
-                        Publisher = await _userRepository.GetUserByTelegramId(683684349)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(683684349)
                     },
                     new Defect
                     {
                         RoomNumber = 30,
                         Description = "Пропав тримач мила у душовій кабіні.",
-                        Publisher = await _userRepository.GetUserByTelegramId(683684349)
+                        Publisher = await _userRepository.GetUserByTelegramIdAsync(683684349)
                     },
 
                 };
