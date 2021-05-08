@@ -3,16 +3,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace DigichList.Bot
+namespace DigichList.Bot.Handlers
 {
-    internal class TelegramBotCommandsHandler
+    internal class TelegramBotCommandsHandler : ITelegramBotCommansHandler
     {
         private readonly ITelegramBotCommands _botCommands;
         public TelegramBotCommandsHandler(ITelegramBotCommands botCommands)
         {
             _botCommands = botCommands;
         }
-        internal async Task HandleCommands(Message message)
+        public async Task HandleCommandsAsync(Message message)
         {
             var telegramId = message.From.Id;
 
@@ -50,5 +50,10 @@ namespace DigichList.Bot
                     break;
             }
         }
+        public async void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
+        {
+            await HandleCommandsAsync(e.Message);
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DigichList.Application.Configuration;
 using DigichList.Application.Interfaces;
 using DigichList.Application.Services;
+using DigichList.Bot.Handlers;
 using DigichList.Core.Repositories;
 using DigichList.Infrastructure.Data;
 using DigichList.Infrastructure.Repositories;
@@ -18,34 +19,45 @@ namespace DigichList.Bot
         static void Main(string[] args)
         {
             ConfigureServices();
-            Bot.OnMessage += Bot_OnMessage;
             Bot.StartReceiving();
             Console.ReadLine();
             Bot.StopReceiving();
         }
 
-        private static async void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
-        {
-            await new TelegramBotCommandsHandler(new TelegramBotCommandsService(new UserRepository(new DigichListContext())))
-                .HandleCommands(e.Message);
-        }
-
         private static void ConfigureServices()
         {
+            Console.WriteLine("I was started");
             var builder = new HostBuilder()
               .ConfigureServices((hostContext, services) =>
               {
-
                   services.AddLogging(configure => configure.AddConsole())
                   .AddScoped<IDefectImageRepository, DefectImageRepository>()
                   .AddScoped<IUserRepository, UserRepository>()
                   .AddScoped<IDefectRepository, DefectRepository>()
                   .AddScoped<IRoleRepository, RoleRepository>()
                   .AddScoped<ITelegramBotCommands, TelegramBotCommandsService>()
+                  .AddScoped<TelegramBotCommandsHandler>()
                   .AddDbContext<DigichListContext>();
               }).UseConsoleLifetime();
 
             var host = builder.Build();
+
+            var serviceScope = host.Services.CreateScope();
+            
+            var services = serviceScope.ServiceProvider;
+
+            try
+            {
+                var myService = services.GetRequiredService<TelegramBotCommandsHandler>();
+                Bot.OnMessage += myService.Bot_OnMessage;
+
+                Console.WriteLine("Success");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Occured: {ex}");
+            }
+            
         }
     }
 }
