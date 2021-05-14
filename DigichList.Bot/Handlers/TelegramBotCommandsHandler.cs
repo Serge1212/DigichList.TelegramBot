@@ -1,4 +1,5 @@
-﻿using DigichList.Application.Interfaces;
+﻿using DigichList.Application.Configuration;
+using DigichList.Application.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
@@ -8,9 +9,12 @@ namespace DigichList.Bot.Handlers
     internal class TelegramBotCommandsHandler : ITelegramBotCommansHandler
     {
         private readonly ITelegramBotCommands _botCommands;
-        public TelegramBotCommandsHandler(ITelegramBotCommands botCommands)
+        private readonly IManageDefectStatusCommand _manageDefectStatusCommand;
+        public TelegramBotCommandsHandler(ITelegramBotCommands botCommands,
+            IManageDefectStatusCommand manageDefectStatusCommand)
         {
             _botCommands = botCommands;
+            _manageDefectStatusCommand = manageDefectStatusCommand;
         }
         public async Task HandleCommandsAsync(Message message)
         {
@@ -33,21 +37,23 @@ namespace DigichList.Bot.Handlers
 
 
                 case "/newdefect":
+                    //TelegramBotEntity.Bot.OnMessage -= Bot_OnMessage;
                     await _botCommands.SendNewDefectAsync(telegramId);
+                    //TelegramBotEntity.Bot.OnMessage += Bot_OnMessage;
                     break;
 
                 
                 case "/setdefectstatus":
-                    await _botCommands.SetDefectStatusAsync(telegramId);
+                    await _manageDefectStatusCommand.SendKeyboardWithDefects(telegramId);
                     break;
 
                 case "/about":
                     await _botCommands.GetAboutAsync(telegramId);
                     break;
 
-                default:
-                    await _botCommands.WelcomeUserAsync(telegramId);
-                    break;
+                //default:
+                //    await _botCommands.WelcomeUserAsync(telegramId);
+                //    break;
             }
         }
         public async void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)

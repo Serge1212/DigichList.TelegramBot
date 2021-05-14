@@ -9,7 +9,7 @@ namespace DigichList.Application.Interfaces
         public Task WelcomeUserAsync(int telegramId);
         public Task RegisterUserApplicationAsync(Message message);
         public Task SendNewDefectAsync(int telegramId);
-        public Task SetDefectStatusAsync(int telegramId);
+        public Task SetDefectStatusAsync(int telegramId, int defectId, Status status);
         public Task GetAboutAsync(int telegramId);
         public Task SendHowItWorksInfo(int telegramId);
     }

@@ -1,5 +1,4 @@
-﻿
-using DigichList.Core.Entities.Base;
+﻿using DigichList.Core.Entities.Base;
 using System.Collections.Generic;
 
 namespace DigichList.Core.Entities

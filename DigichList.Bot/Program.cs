@@ -1,4 +1,5 @@
 ﻿using DigichList.Application.Configuration;
+using DigichList.Application.Helpers;
 using DigichList.Application.Interfaces;
 using DigichList.Application.Services;
 using DigichList.Bot.Handlers;
@@ -9,24 +10,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using Telegram.Bot;
 
 namespace DigichList.Bot
 {
     class Program
-    {
-        private static readonly TelegramBotClient Bot = new TelegramBotClient(BotConfig.BotToken);
+    { 
         static void Main(string[] args)
         {
             ConfigureServices();
-            Bot.StartReceiving();
+            TelegramBotEntity.Bot.StartReceiving();
             Console.ReadLine();
-            Bot.StopReceiving();
+            TelegramBotEntity.Bot.StopReceiving();
         }
 
         private static void ConfigureServices()
         {
-            Console.WriteLine("I was started");
             var builder = new HostBuilder()
               .ConfigureServices((hostContext, services) =>
               {
@@ -35,7 +33,11 @@ namespace DigichList.Bot
                   .AddScoped<IUserRepository, UserRepository>()
                   .AddScoped<IDefectRepository, DefectRepository>()
                   .AddScoped<IRoleRepository, RoleRepository>()
+                  .AddScoped<IAssignedDefectRepository, AssignedDefectRepository>()
                   .AddScoped<ITelegramBotCommands, TelegramBotCommandsService>()
+                  .AddScoped<INewDefectCommand, NewDefectCommand>()
+                  .AddScoped<IManageDefectStatusCommand, ManageDefectStatusCommand>()
+                  .AddScoped<IDefectStatusHandler, DefectStatusHandler>()
                   .AddScoped<TelegramBotCommandsHandler>()
                   .AddDbContext<DigichListContext>();
               }).UseConsoleLifetime();
@@ -48,8 +50,8 @@ namespace DigichList.Bot
 
             try
             {
-                var myService = services.GetRequiredService<TelegramBotCommandsHandler>();
-                Bot.OnMessage += myService.Bot_OnMessage;
+                var telegramBotCommandsHandlerService = services.GetRequiredService<TelegramBotCommandsHandler>();
+                TelegramBotEntity.Bot.OnMessage += telegramBotCommandsHandlerService.Bot_OnMessage;
 
                 Console.WriteLine("Success");
             }
