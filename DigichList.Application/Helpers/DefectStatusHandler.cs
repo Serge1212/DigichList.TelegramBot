@@ -22,34 +22,33 @@ namespace DigichList.Application.Helpers
                     {
                         new KeyboardButton[] { "Виправляється" },
                         new KeyboardButton[] { "Завершено" },
-                    },
-                    resizeKeyboard: true,
-                    oneTimeKeyboard: true
+                    }
                 );
 
             await TelegramBotEntity.Bot.SendTextMessageAsync(
                     chatId: telegramId,
-                    text: "Виберіть статус дефекта",
+                    text: "Виберіть статус дефекту",
                     replyMarkup: replyKeyboardMarkup
                 );
 
-            TelegramBotEntity.Bot.OnMessage += (sender, e) => OnStatusSelect(sender, e, telegramId, assignedDefectId);
-        }
+            TelegramBotEntity.Bot.OnMessage += OnStatusSelect;
 
-        private async void OnStatusSelect(object sender, Telegram.Bot.Args.MessageEventArgs e, int telegramId, int assignedDefectId)
-        {
-            if (telegramId != e.Message.From.Id) return;
-            if (telegramId != e.Message.Chat.Id) return;
+            async void OnStatusSelect(object sender, Telegram.Bot.Args.MessageEventArgs e)
+            {
+                System.Console.WriteLine($"{e.Message.From.Id} on status event");
+                if (telegramId != e.Message.From.Id) return;
+                if (telegramId != e.Message.Chat.Id) return;
 
-            var status = GetStatus(e.Message.Text);
-            if(status != Status.Opened)
-            {
-                await _telegramBotCommands.SetDefectStatusAsync(telegramId, assignedDefectId, status);
-                TelegramBotEntity.Bot.OnMessage -= (sender, e) => OnStatusSelect(sender, e, telegramId, assignedDefectId);
-            }
-            else
-            {
-                await SendMessageAsync(telegramId, InvalidStatus);
+                var status = GetStatus(e.Message.Text);
+                if (status != Status.Opened)
+                {
+                    await _telegramBotCommands.SetDefectStatusAsync(telegramId, assignedDefectId, status);
+                    TelegramBotEntity.Bot.OnMessage -= OnStatusSelect;
+                }
+                else
+                {
+                    await SendMessageAsync(telegramId, InvalidStatus);
+                }
             }
         }
 

@@ -6,6 +6,9 @@ using DigichList.Core.Repositories;
 using Telegram.Bot.Types;
 using DigichList.Core.Entities;
 using System;
+using Telegram.Bot;
+using DigichList.Application.Configuration;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace DigichList.Application.Services
 {
@@ -56,7 +59,7 @@ namespace DigichList.Application.Services
         public async Task SendNewDefectAsync(int telegramId)
         {
             var user = await _userRepository.GetUserByTelegramIdWithRoleAsync(telegramId);
-            var userRole = user.Role;
+            var userRole = user?.Role;
                 if (userRole == null || !userRole.CanPublishDefects)
                 {
                     await SendMessageAsync(telegramId, DefectSendingForbidden);
@@ -80,13 +83,15 @@ namespace DigichList.Application.Services
                 await SendMessageAsync(telegramId, DefectWasNotFound);
             }
             await UpdateDefect(defect, status);
-            await SendMessageAsync(telegramId, StatusWasSuccessfullyChanged);
+            await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, StatusWasSuccessfullyChanged, replyMarkup: new ReplyKeyboardRemove());
+            
         }
 
         public async Task WelcomeUserAsync(int telegramId)
         {
             await SendMessageAsync(telegramId, WelcomeMessageText);
         }
+
         public async Task SendHowItWorksInfo(int telegramId)
         {
             await SendMessageAsync(telegramId, HowItWorks);

@@ -38,8 +38,8 @@ namespace DigichList.Application.Helpers
                     if (IsInt(e.Message.Text))
                     {
                         defectInfo.RoomNumber = Convert.ToInt32(e.Message.Text);
-                        step++;
                         await SendMessageAsync(telegramId, AskForDefectDescriptionMessage);
+                        step++;
                     }
                     else
                     {
@@ -61,9 +61,7 @@ namespace DigichList.Application.Helpers
                     var user = await _userRepository.GetUserByTelegramIdAsync(telegramId);
                     if (user != null)
                     {
-                        defectInfo.Publisher = user;
-                        await _defectRepository.AddAsync(defectInfo);
-                        await SendMessageAsync(telegramId, DefectWasSent);
+                        await AddDefectAsync(user, defectInfo, telegramId);
                         step++;
                     }
                     else
@@ -83,6 +81,13 @@ namespace DigichList.Application.Helpers
         private static bool IsInt(string message)
         {
             return int.TryParse(message, out int result);
+        }
+
+        private async Task AddDefectAsync(User user, Defect defect, int telegramId)
+        {
+            defect.Publisher = user;
+            await _defectRepository.AddAsync(defect);
+            await SendMessageAsync(telegramId, DefectWasSent);
         }
     }
 }

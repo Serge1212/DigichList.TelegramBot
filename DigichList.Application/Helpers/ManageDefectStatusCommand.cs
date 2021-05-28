@@ -25,20 +25,30 @@ namespace DigichList.Application.Helpers
             var inlineKeyboard = new InlineKeyboardMarkup(GetDefectsKeyboard(telegramId));
             await TelegramBotEntity.Bot.SendTextMessageAsync(
                     chatId: telegramId,
-                    text: "Choose",
+                    text: "Виберіть дефект для зміни статусу",
                     replyMarkup: inlineKeyboard
                 );
             TelegramBotEntity.Bot.OnCallbackQuery += Bot_OnCallbackQuery;
+
+            async void Bot_OnCallbackQuery(object sender, Telegram.Bot.Args.CallbackQueryEventArgs e)
+            {
+                System.Console.WriteLine($"{e.CallbackQuery.From.Id} on callback event");
+                Console.WriteLine(telegramId);
+                if (telegramId != e.CallbackQuery.From.Id) return;
+                if (telegramId != e.CallbackQuery.From.Id) return;
+
+                var callbackQuery = e.CallbackQuery;
+
+                await _defectStatusHandler.SendKeyboardWithStatuses(e.CallbackQuery.From.Id, Convert.ToInt32(callbackQuery.Data));
+                TelegramBotEntity.Bot.OnCallbackQuery -= Bot_OnCallbackQuery;
+            }
         }
 
-        private async void Bot_OnCallbackQuery(object sender, Telegram.Bot.Args.CallbackQueryEventArgs e)
-        {
-            var callbackQuery = e.CallbackQuery;
-
-            await _defectStatusHandler.SendKeyboardWithStatuses(e.CallbackQuery.From.Id, Convert.ToInt32(callbackQuery.Data));
-            TelegramBotEntity.Bot.OnCallbackQuery -= Bot_OnCallbackQuery;
-        }
-
+        /// <summary>
+        /// A method that generates assigned defects keyboard
+        /// </summary>
+        /// <param name="telegramId"></param>
+        /// <returns>Returns a telegram keyboard with assigned defects </returns>
         private IEnumerable<InlineKeyboardButton> GetDefectsKeyboard(int telegramId)
         {
             var defects = _assignedDefectRepository
@@ -50,7 +60,7 @@ namespace DigichList.Application.Helpers
             for (int i = 0; i < defects.Length; i++)
             {
                 inlineKeyboardButtons[i] = InlineKeyboardButton
-                    .WithCallbackData(defects[i].Defect.Description, defects[i].Id.ToString());
+                    .WithCallbackData(defects[i].Defect.Description, defects[i].DefectId.ToString());
                 
             }
             return inlineKeyboardButtons;

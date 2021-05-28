@@ -8,7 +8,7 @@ namespace DigichList.Infrastructure.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DigichListDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DigichListDb;Trusted_Connection=True;MultipleActiveResultSets=True;");
         }
 
         public DbSet<User> Users { get; set; }

@@ -37,9 +37,7 @@ namespace DigichList.Bot.Handlers
 
 
                 case "/newdefect":
-                    //TelegramBotEntity.Bot.OnMessage -= Bot_OnMessage;
                     await _botCommands.SendNewDefectAsync(telegramId);
-                    //TelegramBotEntity.Bot.OnMessage += Bot_OnMessage;
                     break;
 
                 
