@@ -2,7 +2,6 @@
 using DigichList.Application.Interfaces;
 using DigichList.Core.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,8 +58,11 @@ namespace DigichList.Application.Helpers
 
             for (int i = 0; i < defects.Length; i++)
             {
-                inlineKeyboardButtons[i] = InlineKeyboardButton
-                    .WithCallbackData(defects[i].Defect.Description, defects[i].DefectId.ToString());
+                if (defects[i].ClosedAt == null)
+                {
+                    inlineKeyboardButtons[i] = InlineKeyboardButton
+                        .WithCallbackData(defects[i].Defect.Description, defects[i].DefectId.ToString());
+                }
                 
             }
             return inlineKeyboardButtons;

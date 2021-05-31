@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigichList.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigichList.Core", "DigichList.Core\DigichList.Core.csproj", "{9EE70837-BABE-4D91-9A43-BD6B67DEA405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigichList.Application", "DigichList.Application\DigichList.Application.csproj", "{2CCE442D-D155-4B0A-9909-A53809B59DBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigichList.Application", "DigichList.Application\DigichList.Application.csproj", "{2CCE442D-D155-4B0A-9909-A53809B59DBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digichlist.Tests", "Digichlist.Tests\Digichlist.Tests.csproj", "{F3DAD2A5-EDCE-455C-ABD9-10B812A20686}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2CCE442D-D155-4B0A-9909-A53809B59DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CCE442D-D155-4B0A-9909-A53809B59DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CCE442D-D155-4B0A-9909-A53809B59DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DAD2A5-EDCE-455C-ABD9-10B812A20686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DAD2A5-EDCE-455C-ABD9-10B812A20686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DAD2A5-EDCE-455C-ABD9-10B812A20686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DAD2A5-EDCE-455C-ABD9-10B812A20686}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

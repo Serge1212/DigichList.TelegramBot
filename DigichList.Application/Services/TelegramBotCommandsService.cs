@@ -83,7 +83,11 @@ namespace DigichList.Application.Services
                 await SendMessageAsync(telegramId, DefectWasNotFound);
             }
             await UpdateDefect(defect, status);
-            await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, StatusWasSuccessfullyChanged, replyMarkup: new ReplyKeyboardRemove());
+
+            await TelegramBotEntity.Bot
+                .SendTextMessageAsync(telegramId,
+                                      StatusWasSuccessfullyChanged,
+                                      replyMarkup: new ReplyKeyboardRemove());
             
         }
 
