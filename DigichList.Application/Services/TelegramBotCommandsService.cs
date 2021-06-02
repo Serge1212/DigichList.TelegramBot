@@ -36,22 +36,20 @@ namespace DigichList.Application.Services
         public async Task RegisterUserApplicationAsync(Message message)
         {
             var telegramId = message.From.Id;
+
             var user = await _userRepository.GetUserByTelegramIdAsync(telegramId);
             if (user == null)
             {
-                var newUser = new Core.Entities.User
-                {
-                    FirstName = message.From?.FirstName,
-                    LastName = message.From?.LastName,
-                    TelegramId = telegramId
-                };
-
-                await _userRepository.AddAsync(newUser);
+                await AddUserAsync(message);
                 await SendMessageAsync(telegramId, RegistrationWasSent);
+            }
+            else if(!user.IsRegistered)
+            {
+                await SendMessageAsync(telegramId, UserAlreadyExists);
             }
             else
             {
-                await SendMessageAsync(telegramId, UserAlreadyExists);
+                await SendMessageAsync(telegramId, UserAlreadyRegistered);
             }
         }
 
@@ -101,6 +99,7 @@ namespace DigichList.Application.Services
             await SendMessageAsync(telegramId, HowItWorks);
         }
 
+        #region Private Methods
         private async Task UpdateDefect(Defect defect, Status status)
         {
             defect.AssignedDefect.Status = status;
@@ -112,5 +111,18 @@ namespace DigichList.Application.Services
 
             await _defectRepository.UpdateAsync(defect);
         }
+
+        private async Task AddUserAsync(Message message)
+        {
+            var newUser = new Core.Entities.User
+            {
+                FirstName = message.From?.FirstName ?? "N/A",
+                LastName = message.From?.LastName ?? "N/A",
+                TelegramId = (int)message.Chat.Id
+            };
+
+            await _userRepository.AddAsync(newUser);
+        }
+        #endregion
     }
 }

@@ -16,6 +16,8 @@
 
         internal const string UserAlreadyExists = "Ви вже надіслали заявку на реєстрацію";
 
+        internal const string UserAlreadyRegistered = "Ви вже зареєстровані";
+
         internal const string UserDidNotApplyForRegistration = "Ви не можете публікувати дефект, так як ви не подавали заявку на реєстрацію.\n" +
                                                                 "Введіть /registerme, щоб подати заявку на реєстрацію.";
 

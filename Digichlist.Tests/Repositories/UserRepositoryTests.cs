@@ -1,4 +1,5 @@
-﻿using DigichList.Core.Entities;
+﻿using Digichlist.Tests.TestData;
+using DigichList.Core.Entities;
 using DigichList.Core.Repositories;
 using DigichList.Infrastructure.Data;
 using DigichList.Infrastructure.Repositories;
@@ -16,15 +17,7 @@ namespace Digichlist.Tests.Repositories
         public readonly IUserRepository mockUserRepo;
         public UserRepositoryTests()
         {
-            IReadOnlyList<User> users = new List<User>
-            {
-                new User{Id = 1, TelegramId = 55555, FirstName = "John",
-                LastName = "williams", IsRegistered = true},
-                new User{Id = 2, TelegramId = 44444, FirstName = "Matthew",
-                LastName = "Paul", IsRegistered = true},
-                new User{Id = 3, TelegramId = 33333, FirstName = "Drake",
-                LastName = "Parker", IsRegistered = false},
-            };
+            IReadOnlyList<User> users = UsersTestData.GetUsersTestData();
 
             Mock<IUserRepository> mockUserRepo = new Mock<IUserRepository>();
 
