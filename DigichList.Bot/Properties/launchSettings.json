@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DigichList.Bot": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "TELEGRAMBOT_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

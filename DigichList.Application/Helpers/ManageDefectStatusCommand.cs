@@ -22,6 +22,11 @@ namespace DigichList.Application.Helpers
         public async Task SendKeyboardWithDefects(int telegramId)
         {
             var inlineKeyboard = new InlineKeyboardMarkup(GetDefectsKeyboard(telegramId));
+            if(inlineKeyboard.InlineKeyboard.Count() < 1)
+            {
+                await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, "У вас немає призначених дефектів!");
+                return;
+            }
             await TelegramBotEntity.Bot.SendTextMessageAsync(
                     chatId: telegramId,
                     text: "Виберіть дефект для зміни статусу",

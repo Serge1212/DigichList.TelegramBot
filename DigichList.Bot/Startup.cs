@@ -13,7 +13,7 @@ using System;
 
 namespace DigichList.Bot
 {
-    class Program
+    class Startup
     { 
         static void Main(string[] args)
         {
