@@ -2,8 +2,9 @@
 
 namespace DigichList.Application.Configuration
 {
-    public class BotConfig
+    public static class BotConfig
     {
-        public static readonly string BotToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_KEY", EnvironmentVariableTarget.User);
+        public static readonly string BotToken = Environment
+            .GetEnvironmentVariable("TELEGRAM_BOT_KEY", EnvironmentVariableTarget.User);
     }
 }

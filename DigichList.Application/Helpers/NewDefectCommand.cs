@@ -59,6 +59,7 @@ namespace DigichList.Application.Helpers
                         return;
                     }
                     var user = await _userRepository.GetUserByTelegramIdAsync(telegramId);
+
                     if (user != null)
                     {
                         await AddDefectAsync(user, defectInfo, telegramId);

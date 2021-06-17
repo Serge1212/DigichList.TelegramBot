@@ -39,8 +39,8 @@ namespace DigichList.Bot
                   .AddScoped<IManageDefectStatusCommand, ManageDefectStatusCommand>()
                   .AddScoped<IDefectStatusHandler, DefectStatusHandler>()
                   .AddScoped<TelegramBotCommandsHandler>()
-                  .AddDbContext<DigichListContext>(ServiceLifetime.Scoped);
-              }).UseConsoleLifetime();
+                  .AddDbContext<DigichListContext>();
+              });
 
             var host = builder.Build();
 

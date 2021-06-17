@@ -21,12 +21,15 @@ namespace DigichList.Application.Helpers
         }
         public async Task SendKeyboardWithDefects(int telegramId)
         {
-            var inlineKeyboard = new InlineKeyboardMarkup(GetDefectsKeyboard(telegramId));
-            if(inlineKeyboard.InlineKeyboard.Count() < 1)
+            var defectsKeyboard = GetDefectsKeyboard(telegramId);
+            
+            if(!defectsKeyboard.Any() || defectsKeyboard.First() == null && defectsKeyboard.Count() == 1)
             {
-                await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, "У вас немає призначених дефектів!");
+                await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, "У вас немає призначених дефектів");
                 return;
             }
+
+            var inlineKeyboard = new InlineKeyboardMarkup(defectsKeyboard);
             await TelegramBotEntity.Bot.SendTextMessageAsync(
                     chatId: telegramId,
                     text: "Виберіть дефект для зміни статусу",
@@ -36,7 +39,6 @@ namespace DigichList.Application.Helpers
 
             async void Bot_OnCallbackQuery(object sender, Telegram.Bot.Args.CallbackQueryEventArgs e)
             {
-                System.Console.WriteLine($"{e.CallbackQuery.From.Id} on callback event");
                 Console.WriteLine(telegramId);
                 if (telegramId != e.CallbackQuery.From.Id) return;
                 if (telegramId != e.CallbackQuery.From.Id) return;
@@ -70,6 +72,7 @@ namespace DigichList.Application.Helpers
                 }
                 
             }
+
             return inlineKeyboardButtons;
         }
     }

@@ -35,7 +35,6 @@ namespace DigichList.Application.Helpers
 
             async void OnStatusSelect(object sender, Telegram.Bot.Args.MessageEventArgs e)
             {
-                System.Console.WriteLine($"{e.Message.From.Id} on status event");
                 if (telegramId != e.Message.From.Id) return;
                 if (telegramId != e.Message.Chat.Id) return;
 

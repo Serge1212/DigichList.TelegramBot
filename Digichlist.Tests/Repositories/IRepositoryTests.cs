@@ -23,7 +23,7 @@ namespace Digichlist.Tests.Repositories
             mockRepo.Setup(u => u.GetAllAsync().Result).Returns(users);
 
             mockRepo.Setup(u => u.GetByIdAsync(It.IsAny<int>()).Result)
-                .Returns((int i) => users.Where(x => x.Id == i).FirstOrDefault());
+                .Returns((int i) => users.FirstOrDefault(x => x.Id == i));
 
             mockRepo.Setup(d => d.DeleteAsync(It.IsAny<User>()));
 

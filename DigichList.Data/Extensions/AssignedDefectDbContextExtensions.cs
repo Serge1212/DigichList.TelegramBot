@@ -11,7 +11,7 @@ namespace DigichList.Infrastructure.Extensions
             return assignedDefects
                 .Include(d => d.Defect)
                 .Include(a => a.AssignedWorker)
-                .Where(x => x.AssignedWorker.TelegramId == telegramId);
+                .Where(x => x.AssignedWorker.TelegramId == telegramId && x.ClosedAt == null);
         }
     }
 }

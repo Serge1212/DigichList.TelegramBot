@@ -6,7 +6,6 @@ using DigichList.Core.Repositories;
 using Telegram.Bot.Types;
 using DigichList.Core.Entities;
 using System;
-using Telegram.Bot;
 using DigichList.Application.Configuration;
 using Telegram.Bot.Types.ReplyMarkups;
 

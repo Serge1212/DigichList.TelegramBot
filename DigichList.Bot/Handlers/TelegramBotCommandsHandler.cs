@@ -20,6 +20,12 @@ namespace DigichList.Bot.Handlers
         {
             var telegramId = message.From.Id;
 
+            if(message.Type != Telegram.Bot.Types.Enums.MessageType.Text)
+            {
+                await TelegramBotEntity.Bot.SendTextMessageAsync(telegramId, "Ви надіслали невірний формат повідомлення");
+                return;
+            }
+
             switch (message.Text.Split(' ').First().ToLower())
             {
                 case "/start":
@@ -48,10 +54,6 @@ namespace DigichList.Bot.Handlers
                 case "/about":
                     await _botCommands.GetAboutAsync(telegramId);
                     break;
-
-                //default:
-                //    await _botCommands.WelcomeUserAsync(telegramId);
-                //    break;
             }
         }
         public async void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
