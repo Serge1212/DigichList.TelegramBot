@@ -59,7 +59,7 @@ namespace DigichList.Application.Helpers
             }
             else if (statusText == "Завершено")
             {
-                return Status.Done;
+                return Status.Solved;
             }
             return Status.Opened;
         }

@@ -103,7 +103,7 @@ namespace DigichList.Application.Services
         {
             defect.AssignedDefect.Status = status;
 
-            if(status == Status.Done)
+            if(status == Status.Solved)
             {
                 defect.AssignedDefect.ClosedAt = DateTime.Now;
             }
