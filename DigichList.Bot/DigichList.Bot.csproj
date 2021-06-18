@@ -18,8 +18,4 @@
     <ProjectReference Include="..\DigichList.Data\DigichList.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Photos\" />
-  </ItemGroup>
-
 </Project>

@@ -102,6 +102,7 @@ namespace DigichList.Application.Services
         private async Task UpdateDefect(Defect defect, Status status)
         {
             defect.AssignedDefect.Status = status;
+            defect.AssignedDefect.StatusChangedAt = DateTime.Now;
 
             if(status == Status.Solved)
             {

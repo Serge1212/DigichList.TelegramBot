@@ -3,7 +3,7 @@
     "DigichList.Bot": {
       "commandName": "Project",
       "environmentVariables": {
-        "TELEGRAMBOT_ENVIRONMENT": "Production"
+        "TELEGRAMBOT_ENVIRONMENT": "Development"
       },
       "sqlDebugging": true
     }
