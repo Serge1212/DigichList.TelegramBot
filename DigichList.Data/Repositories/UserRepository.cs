@@ -16,9 +16,9 @@ namespace DigichList.Infrastructure.Repositories
             return await _context.Users.GetUserByTelegramId(telegramId);
         }
 
-        public async Task<User> GetUserByTelegramIdWithRoleAsync(int telegramId)
+        public User GetUserByTelegramIdWithRole(int telegramId)
         {
-            return await _context.Users.GetUserByTelegramIdWithRole(telegramId);
+            return _context.Users.GetUserByTelegramIdWithRole(telegramId);
         }
     }
 }

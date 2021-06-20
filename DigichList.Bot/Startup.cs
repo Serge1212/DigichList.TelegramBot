@@ -3,9 +3,12 @@ using DigichList.Application.Helpers;
 using DigichList.Application.Interfaces;
 using DigichList.Application.Services;
 using DigichList.Bot.Handlers;
+using DigichList.Core.Entities.Base;
 using DigichList.Core.Repositories;
+using DigichList.Core.Repositories.Base;
 using DigichList.Infrastructure.Data;
 using DigichList.Infrastructure.Repositories;
+using DigichList.Infrastructure.Repositories.Base;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -29,6 +32,7 @@ namespace DigichList.Bot
               .ConfigureServices((hostContext, services) =>
               {
                   services.AddLogging(configure => configure.AddConsole())
+                  .AddScoped(typeof(IRepository<Entity, int>), typeof(Repository<Entity, int>))
                   .AddScoped<IDefectImageRepository, DefectImageRepository>()
                   .AddScoped<IUserRepository, UserRepository>()
                   .AddScoped<IDefectRepository, DefectRepository>()

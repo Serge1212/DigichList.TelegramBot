@@ -38,7 +38,21 @@ namespace DigichList.Application.Helpers
                 if (telegramId != e.Message.From.Id) return;
                 if (telegramId != e.Message.Chat.Id) return;
 
-                var status = GetStatus(e.Message.Text);
+                var message = e.Message.Text;
+
+                if (!message.Contains("Виправляється") && !message.Contains("Завершено"))
+                {
+                    await SendMessageAsync
+                        (
+                        telegramId,
+                        "Сталася помилка при виборі статусу дефекту."
+                        );
+
+                    TelegramBotEntity.Bot.OnMessage -= OnStatusSelect;
+                    return;
+                }
+
+                var status = GetStatus(message);
                 if (status != Status.Opened)
                 {
                     await _telegramBotCommands.SetDefectStatusAsync(telegramId, assignedDefectId, status);

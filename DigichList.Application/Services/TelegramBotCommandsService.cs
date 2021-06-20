@@ -55,15 +55,15 @@ namespace DigichList.Application.Services
 
         public async Task SendNewDefectAsync(int telegramId)
         {
-            var user = await _userRepository.GetUserByTelegramIdWithRoleAsync(telegramId);
+            var user = _userRepository.GetUserByTelegramIdWithRole(telegramId);
             var userRole = user?.Role;
-                if (userRole == null || !userRole.CanPublishDefects)
-                {
-                    await SendMessageAsync(telegramId, DefectSendingForbidden);
-                }
-                else if(user == null)
+                if(user == null)
                 {
                     await SendMessageAsync(telegramId, UserDidNotApplyForRegistration);
+                }
+                else if (userRole == null || !userRole.CanPublishDefects)
+                {
+                    await SendMessageAsync(telegramId, DefectSendingForbidden);
                 }
                 else
                 {

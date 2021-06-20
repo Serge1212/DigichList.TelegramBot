@@ -8,6 +8,6 @@ namespace DigichList.Core.Repositories
     {
         public Task<User> GetUserByTelegramIdAsync(int telegramId);
 
-        public Task<User> GetUserByTelegramIdWithRoleAsync(int telegramId);
+        public User GetUserByTelegramIdWithRole(int telegramId);
     }
 }

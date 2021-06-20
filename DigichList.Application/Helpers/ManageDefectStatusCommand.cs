@@ -1,4 +1,5 @@
-﻿using DigichList.Application.Configuration;
+﻿using static DigichList.Application.Helpers.TelegramBotMessageSender;
+using DigichList.Application.Configuration;
 using DigichList.Application.Interfaces;
 using DigichList.Core.Repositories;
 using System;
@@ -42,8 +43,20 @@ namespace DigichList.Application.Helpers
                 Console.WriteLine(telegramId);
                 if (telegramId != e.CallbackQuery.From.Id) return;
                 if (telegramId != e.CallbackQuery.From.Id) return;
-
+                
                 var callbackQuery = e.CallbackQuery;
+
+                if (callbackQuery.Data == null)
+                {
+                    await SendMessageAsync
+                        (
+                        telegramId,
+                        "Сталася помилка при виборі дефекту. Спробуйте ввести команду \"/setdefectstatus\" знову"
+                        );
+
+                    return;
+                }
+
 
                 await _defectStatusHandler.SendKeyboardWithStatuses(e.CallbackQuery.From.Id, Convert.ToInt32(callbackQuery.Data));
                 TelegramBotEntity.Bot.OnCallbackQuery -= Bot_OnCallbackQuery;

@@ -11,11 +11,11 @@ namespace DigichList.Infrastructure.Extensions
         {
             return await users.FirstOrDefaultAsync(x => x.TelegramId == telegramId);
         }
-        public static async Task<User> GetUserByTelegramIdWithRole(this DbSet<User> users, int telegramId)
+        public static User GetUserByTelegramIdWithRole(this DbSet<User> users, int telegramId)
         {
-            return await users
+            return users
                 .Include(r => r.Role)
-                .FirstOrDefaultAsync(x => x.TelegramId == telegramId);
+                .FirstOrDefault(x => x.TelegramId == telegramId);
         }
 
         public static IQueryable<User> GetTechnicians(this DbSet<User> users)
