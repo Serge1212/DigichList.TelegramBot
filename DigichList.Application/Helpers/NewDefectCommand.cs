@@ -44,7 +44,6 @@ namespace DigichList.Application.Helpers
                     else
                     {
                         await SendMessageAsync(telegramId, OnlyNumbersAllowedWarning);
-                        return;
                     }
                 }
                 else if (step == 2)

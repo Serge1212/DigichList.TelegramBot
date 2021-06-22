@@ -1,6 +1,5 @@
 ﻿using DigichList.Application.Configuration;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 
 namespace DigichList.Application.Helpers
 {

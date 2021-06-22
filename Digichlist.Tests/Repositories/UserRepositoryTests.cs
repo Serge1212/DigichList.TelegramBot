@@ -24,10 +24,10 @@ namespace Digichlist.Tests.Repositories
             mockUserRepo.Setup(u => u.GetAllAsync().Result).Returns(users);
 
             mockUserRepo.Setup(u => u.GetByIdAsync(It.IsAny<int>()).Result)
-                .Returns((int i) => users.Where(x => x.Id == i).FirstOrDefault());
+                .Returns((int i) => users.FirstOrDefault(x => x.Id == i));
 
             mockUserRepo.Setup(u => u.GetUserByTelegramIdAsync(It.IsAny<int>()).Result)
-                .Returns((int telegramId) => users.Where(x => x.TelegramId == telegramId).FirstOrDefault());
+                .Returns((int telegramId) => users.FirstOrDefault(x => x.TelegramId == telegramId));
 
             this.mockUserRepo = mockUserRepo.Object;
         }
